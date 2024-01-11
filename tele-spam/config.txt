@@ -1,5 +1,0 @@
-BotToken=6629030152:AAHgs7RkKyf3dn6gKrdfZYm3JAcS2a7ZncA
-ChatID=1002075483
-ImageURL=https://picsum.photos/200
-CaptionText=This is an automatic message with an image.
-MessageCount=5
