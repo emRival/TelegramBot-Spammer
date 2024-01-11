@@ -26,6 +26,12 @@ Go to the project directory
   cd TelegramBot-Spammer-main
 ```
 
+Before using this script, make sure you have Python installed. You can install the required dependencies by running:
+
+```bash
+pip install -r requirements.txt
+```
+
 Setup target ```config.txt```
 
 ```bash
