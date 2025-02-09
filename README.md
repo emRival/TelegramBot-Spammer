@@ -2,14 +2,12 @@
 # Telegram Spammer Chat Bot
 This application is used to send spam messages and images to bank fraud perpetrators who use the Telegram API as a data storage server.
 
-
 ## Features
 
 - Send text messages automatically
 - Set the amount of spam
 - Attach image link
 - Attach a text description of the image
-
 
 ## Usage
 #### To use this you have to know how to get the Bot Token and ChatId from the target
@@ -29,7 +27,8 @@ Go to the project directory
 Before using this script, make sure you have Python installed. You can install the required dependencies by running:
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate bottelegram
 ```
 
 Setup target ```config.txt```
@@ -47,7 +46,6 @@ Run the script using the following command:
 ```bash
   python tele-spam.py
 ```
-
 
 ## Authors
 
