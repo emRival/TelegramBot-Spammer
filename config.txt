@@ -1,5 +1,5 @@
-BotToken=6629030152:AAHgs7RkKyf3dn6gKrdfZYm3JAcS2a7ZncA
-ChatID=1002075483
+BotToken=7639120990:AAHxCCKazXhD4MwWLk9p63QMIeRPWJj4taM
+ChatID=8064824641
 ImageURL=https://picsum.photos/200
-CaptionText=This is an automatic message with an image.
-MessageCount=5
+CaptionText=Halo Anjing.
+MessageCount=10

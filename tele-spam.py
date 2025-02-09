@@ -1,17 +1,8 @@
+import asyncio
 import requests
 from io import BytesIO
 from telegram import Bot
-from telegram import InputFile
-
-def send_photo_from_url(bot_token, chat_id, photo_url, caption=""):
-    bot = Bot(token=bot_token)
-    
-    response = requests.get(photo_url)
-    if response.status_code == 200:
-        photo = BytesIO(response.content)
-        bot.send_photo(chat_id=chat_id, photo=photo, caption=caption)
-    else:
-        print(f"Failed to download image from {photo_url}")
+from telegram.error import TelegramError
 
 def read_config(file_path="config.txt"):
     config = {}
@@ -21,7 +12,23 @@ def read_config(file_path="config.txt"):
             config[key] = value
     return config
 
-if __name__ == '__main__':
+async def send_photo_from_url(bot_token, chat_id, photo_url, caption=""):
+    bot = Bot(token=bot_token)
+
+    try:
+        response = requests.get(photo_url)
+        if response.status_code == 200:
+            photo = BytesIO(response.content)
+            message = await bot.send_photo(chat_id=chat_id, photo=photo, caption=caption)
+            print(f"✅ Foto berhasil dikirim ke {chat_id} dengan ID pesan: {message.message_id}")
+        else:
+            print(f"❌ Gagal mengunduh gambar dari {photo_url}, status code: {response.status_code}")
+    except TelegramError as e:
+        print(f"❌ Terjadi kesalahan saat mengirim foto: {e}")
+    except Exception as e:
+        print(f"❌ Kesalahan umum: {e}")
+
+async def main():
     config = read_config()
 
     bot_token = config.get("BotToken")
@@ -30,8 +37,10 @@ if __name__ == '__main__':
     caption_text = config.get("CaptionText")
     message_count = int(config.get("MessageCount", 1))
 
-    # Loop untuk mengirim gambar sebanyak yang diinginkan
-    for _ in range(message_count):
-        send_photo_from_url(bot_token, chat_id, image_url, caption=caption_text)
+    tasks = [send_photo_from_url(bot_token, chat_id, image_url, caption=caption_text) for _ in range(message_count)]
+    await asyncio.gather(*tasks)
 
-    print(f"Messages sent successfully to chat ID {chat_id}.")
+    print(f"🎉 Semua pesan ({message_count}) berhasil dikirim ke {chat_id}!")
+
+if __name__ == '__main__':
+    asyncio.run(main())
